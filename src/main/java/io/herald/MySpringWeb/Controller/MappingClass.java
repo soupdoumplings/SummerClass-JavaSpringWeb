@@ -62,5 +62,11 @@ String password = request.getParameter("password");
 
 
     }
+    @GetMapping("/home")
+    public String homeGet(Model m)
+    {
+        m.addAttribute("totalUsers", uRepo.findAll());
+        return "home.html";
+    }
 
 }
