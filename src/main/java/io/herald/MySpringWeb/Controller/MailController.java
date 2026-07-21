@@ -1,5 +1,7 @@
 package io.herald.MySpringWeb.Controller;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,8 +10,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class MailController {
 
     @GetMapping("/mail")
-    public String mailGet()
+    public String mailGet(HttpServletRequest request, HttpSession httpSession)
     {
+        HttpSession session = request.getSession();
+
+        if(session.getAttribute("username") == null){
+            return "login";
+        }
         return "mailPage.html";
     }
 }

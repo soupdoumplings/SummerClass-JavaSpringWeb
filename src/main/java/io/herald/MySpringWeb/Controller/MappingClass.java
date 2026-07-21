@@ -3,6 +3,7 @@ package io.herald.MySpringWeb.Controller;
 import io.herald.MySpringWeb.Model.UserTable;
 import io.herald.MySpringWeb.Repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,7 +39,7 @@ public class MappingClass {
     }
 
     @PostMapping("/login")
-    public String loginPost(HttpServletRequest request, Model m)
+    public String loginPost(HttpServletRequest request, Model m, HttpSession httpSession)
     {
 String username= request.getParameter("username");
 String password = request.getParameter("password");
@@ -51,6 +52,10 @@ String password = request.getParameter("password");
         {
             List<UserTable> totalUsers = uRepo.findAll();
             m.addAttribute("totalUsers", totalUsers);
+
+            HttpSession session = request.getSession();
+            session.setAttribute("username",username);
+
             return "home.html";
         }
 
@@ -67,6 +72,16 @@ String password = request.getParameter("password");
     {
         m.addAttribute("totalUsers", uRepo.findAll());
         return "home.html";
+    }
+
+    @GetMapping("/logout")
+    public String logoutGet(HttpServletRequest request){
+
+        HttpSession session = request.getSession();
+        session.invalidate();
+        //Logouts your session
+
+        return "login";
     }
 
 }
