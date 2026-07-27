@@ -10,11 +10,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class MailController {
 
     @GetMapping("/mail")
-    public String mailGet(HttpServletRequest request, HttpSession httpSession)
+    public String mailGet(HttpServletRequest request, Model m)
     {
         HttpSession session = request.getSession();
 
         if(session.getAttribute("username") == null){
+            m.addAttribute("message", "You are not logged in!!");
             return "login";
         }
         return "mailPage.html";
