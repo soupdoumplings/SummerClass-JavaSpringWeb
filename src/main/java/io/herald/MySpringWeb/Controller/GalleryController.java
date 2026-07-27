@@ -6,6 +6,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.util.Base64;
 
 @Controller
 public class GalleryController {
@@ -23,8 +28,22 @@ public class GalleryController {
     }
 
     @PostMapping("/gallery")
-    public String galleryPost(HttpServletRequest request, Model m)
+    public String galleryPost(@RequestParam("image") MultipartFile image, HttpServletRequest request, Model m)
     {
+        try{
+
+            byte[] imageBytes = image.getBytes();
+            //Base64 encoder to encode the information of file into the string
+            //Base64 decoder to decode it back
+
+            String imageString  = Base64.getEncoder().encodeToString(imageBytes);
+
+
+        }catch(IOException ex){
+            ex.printStackTrace();
+        }
+
+
         HttpSession session = request.getSession();
 
         return "galleryPage.html";

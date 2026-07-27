@@ -1,7 +1,6 @@
 package io.herald.MySpringWeb.Repository;
 
 import io.herald.MySpringWeb.Model.UserTable;
-import org.apache.catalina.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
