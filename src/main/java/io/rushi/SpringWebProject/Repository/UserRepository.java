@@ -1,6 +1,6 @@
-package io.herald.MySpringWeb.Repository;
+package io.rushi.SpringWebProject.Repository;
 
-import io.herald.MySpringWeb.Model.UserTable;
+import io.rushi.SpringWebProject.Model.UserTable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,7 +1,10 @@
-package io.herald.MySpringWeb.Controller;
+package io.rushi.SpringWebProject.Controller;
 
+import io.rushi.SpringWebProject.Model.ImageTable;
+import io.rushi.SpringWebProject.Repository.ImageRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +17,9 @@ import java.util.Base64;
 
 @Controller
 public class GalleryController {
+
+    @Autowired
+    private ImageRepository imageRepository;
 
     @GetMapping("/gallery")
     public String galleryGet(HttpServletRequest request, Model m)
@@ -28,7 +34,7 @@ public class GalleryController {
     }
 
     @PostMapping("/gallery")
-    public String galleryPost(@RequestParam("image") MultipartFile image, HttpServletRequest request, Model m)
+    public String galleryPost(@RequestParam("image") MultipartFile image, HttpSession session)
     {
         try{
 
@@ -38,14 +44,15 @@ public class GalleryController {
 
             String imageString  = Base64.getEncoder().encodeToString(imageBytes);
 
+            ImageTable img = new ImageTable();
+            img.setImage(imageString);
+
+            imageRepository.save(img);
 
         }catch(IOException ex){
             ex.printStackTrace();
         }
-
-
-        HttpSession session = request.getSession();
-
+        session.setAttribute("totalImages", imageRepository.findAll());
         return "galleryPage.html";
     }
 }

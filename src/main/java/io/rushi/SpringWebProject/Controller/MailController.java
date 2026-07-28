@@ -1,4 +1,4 @@
-package io.herald.MySpringWeb.Controller;
+package io.rushi.SpringWebProject.Controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;

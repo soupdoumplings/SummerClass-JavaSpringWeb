@@ -1,4 +1,4 @@
-package io.herald.MySpringWeb.Model;
+package io.rushi.SpringWebProject.Model;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -12,7 +12,7 @@ public class ImageTable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Lob //Large Object
-    @Column(columnDefinition = "MEDIUMLOB")
+    @Lob // Large text object; images are stored here as Base64 strings.
+    @Column(columnDefinition = "MEDIUMBLOB")
     private String image;
 }

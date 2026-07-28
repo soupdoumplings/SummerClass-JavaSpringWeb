@@ -1,4 +1,4 @@
-package io.herald.MySpringWeb;
+package io.rushi.SpringWebProject;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

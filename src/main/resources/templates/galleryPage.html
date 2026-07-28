@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Gallery</title>
@@ -9,11 +9,18 @@
 <h1>This is gallery</h1>
 <hr>
 Upload your image!!Rawrrr
-<form method="post" action="gallery" enctype="multipart/form-data">
+<form method="post" th:action="@{/gallery}" enctype="multipart/form-data">
 
     <input type="file" name="image">
     <input type="submit" value="UPLOAD IMAGE">
 
 </form>
+
+<hr>
+<h4>Images from TIDB</h4>
+
+<div th:each="image : ${session.totalImages}">
+    <img th:src="${'data:image/jpeg;base64,' + image.getImage()}" alt="Uploaded image">
+</div>
 </body>
 </html>

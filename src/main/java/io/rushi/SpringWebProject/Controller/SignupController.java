@@ -1,7 +1,7 @@
-package io.herald.MySpringWeb.Controller;
+package io.rushi.SpringWebProject.Controller;
 
-import io.herald.MySpringWeb.Model.UserTable;
-import io.herald.MySpringWeb.Repository.UserRepository;
+import io.rushi.SpringWebProject.Model.UserTable;
+import io.rushi.SpringWebProject.Repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
