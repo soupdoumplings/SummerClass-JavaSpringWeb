@@ -4,6 +4,7 @@ import io.rushi.SpringWebProject.Model.UserTable;
 import io.rushi.SpringWebProject.Repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -47,6 +48,14 @@ public class SignupController {
     uc.setPassword(hashPassword);
 
     uRepo.save(uc);
+
+    // MailSender
+    SimpleMailMessage message = new SimpleMailMessage();
+    message.setTo(email);
+    message.setSubject("SignedUp Successfully!!!");
+    message.setText("Welcome to the mickey mouse club house" + username + "Want some Cupcakes?");
+    // mailSender.send(message);
+
 
     System.out.println(username);
     System.out.println(password);
