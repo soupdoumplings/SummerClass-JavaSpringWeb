@@ -1,4 +1,4 @@
-package io.herald.MySpringWeb.Model;
+package io.rushi.SpringWebProject.Model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

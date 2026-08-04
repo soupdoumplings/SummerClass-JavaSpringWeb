@@ -1,6 +1,10 @@
 package io.rushi.SpringWebProject.Controller;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import io.rushi.SpringWebProject.Model.ImageTable;
+import io.rushi.SpringWebProject.Model.ImageTable2;
+import io.rushi.SpringWebProject.Repository.Image2Repository;
 import io.rushi.SpringWebProject.Repository.ImageRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -14,12 +18,17 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.Base64;
+import java.util.Map;
 
 @Controller
 public class GalleryController {
 
     @Autowired
     private ImageRepository imageRepository;
+    @Autowired
+    private Cloudinary cloudinary;
+    @Autowired
+    private Image2Repository image2Repo;
 
     @GetMapping("/gallery")
     public String galleryGet(HttpServletRequest request, Model m)
@@ -31,6 +40,12 @@ public class GalleryController {
             return "login";
         }
         return "galleryPage.html";
+    }
+
+    @GetMapping("/cloudinary")
+    public String cloudinaryGet(Model m){
+        m.addAttribute("cloudinary", image2Repo.findAll());
+        return "cloudinaryPage.html";
     }
 
     @PostMapping("/gallery")
@@ -55,4 +70,28 @@ public class GalleryController {
         session.setAttribute("totalImages", imageRepository.findAll());
         return "galleryPage.html";
     }
+
+    @PostMapping("/cloudinary")
+    public String cloudinaryPost(@RequestParam("image") MultipartFile image, Model m)
+    {
+        try{
+            Map uploadResult =  cloudinary.uploader().upload(image.getBytes(), ObjectUtils.emptyMap());
+            String imgUrl = uploadResult.get("secure_url").toString();
+
+            ImageTable2 img = new ImageTable2();
+            img.setImageUrl(imgUrl);
+
+            image2Repo.save(img);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        m.addAttribute("cloudImages", image2Repo.findAll());
+
+
+        return "cloudinaryPage";
+    }
+
+
 }

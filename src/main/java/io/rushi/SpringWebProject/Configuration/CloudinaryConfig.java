@@ -17,7 +17,7 @@ public class CloudinaryConfig {
                 "cloud_name","glwfymp3",
                 "api_key","428393921153524",
                 "api_secret","I6aj62hM9DfLSBKkRP3UnBOx3V4",
-                "secure","true"
+                "secure", true
         ));
 
     }

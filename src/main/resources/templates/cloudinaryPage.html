@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cloudinary Gallery</title>
+</head>
+<body>
+<div th:insert="navbar.html"></div>
+<h1>This is cloudinary gallery page</h1>
+<hr>
+Upload your image!!Rawrrr
+<form method="post" action="/cloudinary" enctype="multipart/form-data">
+
+    <input type="file" name="image">
+    <input type="submit" value="UPLOAD IMAGE">
+
+</form>
+
+<hr>
+<h4>Images from Cloudinary</h4>
+<span th:each="image:${cloudinary}">
+    <img th:src="${image.getImageUrl()}">
+</span>
+</body>
+</html>
