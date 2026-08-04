@@ -45,7 +45,7 @@ public class GalleryController {
     @GetMapping("/cloudinary")
     public String cloudinaryGet(Model m){
         m.addAttribute("cloudinary", image2Repo.findAll());
-        return "cloudinaryPage.html";
+        return "cloudinaryPage";
     }
 
     @PostMapping("/gallery")
@@ -68,7 +68,7 @@ public class GalleryController {
             ex.printStackTrace();
         }
         session.setAttribute("totalImages", imageRepository.findAll());
-        return "galleryPage.html";
+        return "galleryPage";
     }
 
     @PostMapping("/cloudinary")
@@ -87,7 +87,7 @@ public class GalleryController {
             e.printStackTrace();
         }
 
-        m.addAttribute("cloudImages", image2Repo.findAll());
+        m.addAttribute("cloudinary", image2Repo.findAll());
 
 
         return "cloudinaryPage";

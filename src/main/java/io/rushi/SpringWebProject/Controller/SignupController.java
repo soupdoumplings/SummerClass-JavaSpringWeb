@@ -4,6 +4,7 @@ import io.rushi.SpringWebProject.Model.UserTable;
 import io.rushi.SpringWebProject.Repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.DigestUtils;
@@ -22,26 +23,30 @@ public class SignupController {
     //create an object.
     private UserRepository uRepo;
 
+    @Autowired
+    private JavaMailSender mailSender;
+
 
 @GetMapping("/signup")
     public String signup() {
-    return "signup.html";
+    return "signup";
 }
 
 @PostMapping("/signup")
     public String postSignup(HttpServletRequest request, Model m)
 {
-String username=request.getParameter("username");
-String password=request.getParameter("password");
+    String username=request.getParameter("username");
+    String password=request.getParameter("password");
+    String email=request.getParameter("email");
 
-//MD5 Hashing - Crackable
-String hashPassword = DigestUtils.md5DigestAsHex(password.getBytes());
+    //MD5 Hashing - Crackable
+    String hashPassword = DigestUtils.md5DigestAsHex(password.getBytes());
 
-UserTable uc = new UserTable();
-uc.setUsername(username);
-uc.setPassword(hashPassword);
+    UserTable uc = new UserTable();
+    uc.setUsername(username);
+    uc.setPassword(hashPassword);
 
-uRepo.save(uc);
+    uRepo.save(uc);
 
     System.out.println(username);
     System.out.println(password);
@@ -51,7 +56,7 @@ uRepo.save(uc);
 
     //m.addAttribute(msgtitle,msg);
     m.addAttribute("signupSuccess","You have successfully signed up! Please Login!");
-    return "login.html";
+    return "login";
 }
 
 
